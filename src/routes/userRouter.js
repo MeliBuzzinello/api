@@ -144,13 +144,12 @@ userRouter.post('/login', passport.authenticate('login', {
 }), async (req, res) => {
     const user = req.user;
     console.log(user);
-    res.sendFile('C:/Users/usuario/Desktop/Back-end/api/views/login-ok.hbs');
+    res.render('login-ok', { user });
 });
 
 userRouter.get('/faillogin', async (req, res) => {
     console.log('error en login');
-    res.render('login-error', {
-    });
+    res.render('login-error', { });
 });
 
 //Last part
@@ -171,10 +170,15 @@ userRouter.get('/ruta-protegida', checkAuthentication, (req, res) => {
 
 //LOGOUT
 userRouter.get('/logout', async (req, res) => {
-    req.logout((err) => {
-        if (err) { return next(err); }
-        res.sendFile('C:/Users/usuario/Desktop/Back-end/api/views/index.html');
-    });
-});
+    req.session.destroy(err => {
+        if(err) {
+            //logger.error(`Logout error`)
+            res.json({ status: 'Logout Error', body: err })
+        } else {
+            //logger.info(`Usuario correcto`)
+            res.render('layouts/main', { })
+        }
+    })
+})
 
 export default userRouter;

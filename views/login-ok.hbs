@@ -2,6 +2,8 @@
     <div class="jumbotron" style="background-color: green;color: white;">
         <h1>USER OK LOGIN!</h1>
         <h2><i>Bienvenido {{username}}</i></h2>
+         <dt>Nombre:</dt><dd>{{username}}</dd>
+        <dt>Edad:</dt><dd>{{year}}</dd>
         <br>
         <h3>Email: {{email}}</h3>
         <button class="btn btn-danger my-5" onclick="logout()">LOGOUT</button>
@@ -14,7 +16,6 @@
     } 
 
     function logout() {
-        console.log('logout');
         redireccionar('api/use/logout')
     }
 </script>
